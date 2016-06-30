@@ -274,7 +274,10 @@ void I2S_DisableMCLK(I2S_T *i2s);
 
 /*@}*/ /* end of group NANO100_Device_Driver */
 
+#ifdef __cplusplus
+}
 #endif
 
+#endif //__I2S_H__
 /*** (C) COPYRIGHT 2014 Nuvoton Technology Corp. ***/
 
