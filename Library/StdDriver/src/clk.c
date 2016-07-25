@@ -25,7 +25,7 @@
 
 /**
   * @brief  This function disable frequency output function.
-  * @param  None	
+  * @param  None
   * @return None
   */
 void CLK_DisableCKO(void)
@@ -42,7 +42,7 @@ void CLK_DisableCKO(void)
   *         - \ref CLK_CLKSEL2_FRQDIV_S_LXT
   *         - \ref CLK_CLKSEL2_FRQDIV_S_HCLK
   *         - \ref CLK_CLKSEL2_FRQDIV_S_HIRC
-  * @param[in]  u32ClkDiv is divider output frequency selection.  
+  * @param[in]  u32ClkDiv is divider output frequency selection.
   * @return None
   *
   * @details    Output selected clock to CKO. The output clock frequency is divided by u32ClkDiv.
@@ -183,11 +183,10 @@ uint32_t CLK_SetCoreClock(uint32_t u32Hclk)
     /* Read HIRC clock source stable flag */
     u32HIRCSTB = CLK->CLKSTATUS & CLK_CLKSTATUS_HIRC_STB_Msk;
 
-    if(u32Hclk==__HIRC12M)
-    {
-      CLK_EnableXtalRC(CLK_PWRCTL_HIRC_EN_Msk);
-      CLK_SetHCLK(CLK_CLKSEL0_HCLK_S_HIRC,CLK_HCLK_CLK_DIVIDER(1));
-      return SystemCoreClock;
+    if(u32Hclk==__HIRC12M) {
+        CLK_EnableXtalRC(CLK_PWRCTL_HIRC_EN_Msk);
+        CLK_SetHCLK(CLK_CLKSEL0_HCLK_S_HIRC,CLK_HCLK_CLK_DIVIDER(1));
+        return SystemCoreClock;
     }
 
     if(u32Hclk<FREQ_24MHZ) u32Hclk=FREQ_24MHZ;
@@ -198,7 +197,7 @@ uint32_t CLK_SetCoreClock(uint32_t u32Hclk)
         CLK_EnablePLL(CLK_PLLCTL_PLL_SRC_HXT,u32Hclk*3);
 
     /* Configure PLL setting if HXT clock is not enabled */
-    else{
+    else {
         CLK_EnablePLL(CLK_PLLCTL_PLL_SRC_HIRC,u32Hclk*3);
 
         /* Read HIRC clock source stable flag */
@@ -409,7 +408,7 @@ void CLK_DisableXtalRC(uint32_t u32ClkMask)
   *         - \ref GPIO_MODULE
   *         - \ref DMA_MODULE
   *         - \ref ISP_MODULE
-  *         - \ref EBI_MODULE 
+  *         - \ref EBI_MODULE
   *         - \ref SRAM_MODULE
   *         - \ref TICK_MODULE
   *         - \ref SC1_MODULE
@@ -448,7 +447,7 @@ void CLK_EnableModuleClock(uint32_t u32ModuleIdx)
   *         - \ref GPIO_MODULE
   *         - \ref DMA_MODULE
   *         - \ref ISP_MODULE
-  *         - \ref EBI_MODULE 
+  *         - \ref EBI_MODULE
   *         - \ref SRAM_MODULE
   *         - \ref TICK_MODULE
   *         - \ref SC1_MODULE
@@ -571,20 +570,19 @@ void CLK_SysTickDelay(uint32_t us)
   * @param[in]  u32Count is System Tick reload value. It should be 0x1~0xFFFFFF.
   * @return     None
   * @details    This function set System Tick clock source, reload value, enable System Tick counter and interrupt.
-  *                    The register write-protection function should be disabled before using this function. 
+  *                    The register write-protection function should be disabled before using this function.
   */
 void CLK_EnableSysTick(uint32_t u32ClkSrc, uint32_t u32Count)
 {
-  SysTick->CTRL=0;
-  if( u32ClkSrc== CLK_CLKSEL0_STCLKSEL_HCLK )    /* Set System Tick clock source */
-     SysTick->CTRL |= SysTick_CTRL_CLKSOURCE_Msk;
-  else
-  {
-     SysTick->CTRL &= ~SysTick_CTRL_CLKSOURCE_Msk;
-  }
-  SysTick->LOAD  = u32Count;                /* Set System Tick reload value */
-  SysTick->VAL = 0;                         /* Clear System Tick current value and counter flag  */
-  SysTick->CTRL |= SysTick_CTRL_ENABLE_Msk; /* Set System Tick counter enabled */
+    SysTick->CTRL=0;
+    if( u32ClkSrc== CLK_CLKSEL0_STCLKSEL_HCLK )    /* Set System Tick clock source */
+        SysTick->CTRL |= SysTick_CTRL_CLKSOURCE_Msk;
+    else {
+        SysTick->CTRL &= ~SysTick_CTRL_CLKSOURCE_Msk;
+    }
+    SysTick->LOAD  = u32Count;                /* Set System Tick reload value */
+    SysTick->VAL = 0;                         /* Clear System Tick current value and counter flag  */
+    SysTick->CTRL |= SysTick_CTRL_ENABLE_Msk; /* Set System Tick counter enabled */
 }
 
 /**
@@ -594,7 +592,7 @@ void CLK_EnableSysTick(uint32_t u32ClkSrc, uint32_t u32Count)
   */
 void CLK_DisableSysTick(void)
 {
-  SysTick->CTRL = 0;    /* Set System Tick counter disabled */
+    SysTick->CTRL = 0;    /* Set System Tick counter disabled */
 }
 
 /**

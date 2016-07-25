@@ -3,7 +3,7 @@
 * @version  V1.00
 * $Revision: 1 $
 * $Date: 15/06/08 11:16a $
-* @brief    Demonstrate how to change different PLL settings for the system clock source, 
+* @brief    Demonstrate how to change different PLL settings for the system clock source,
 *           and output system clock to CLKO (PC.5) pin with the system clock / 4 frequency.
 *
 * @note
@@ -24,7 +24,7 @@ __IO uint32_t u32WDT_Ticks = 0;
 /*---------------------------------------------------------------------------------------------------------*/
 void BOD_IRQHandler(void)
 {
-    /* Clear Interrupt Flag */	                 
+    /* Clear Interrupt Flag */
     SYS->BODSTS |= SYS_BODSTS_BOD_INT_Msk;
 
     printf("Brown Out is Detected\n");
@@ -37,8 +37,8 @@ void WDT_IRQHandler(void)
 {
     __IO uint32_t u32IntSts;
 
-    u32IntSts = WDT->ISR;	  
-    if (u32IntSts & WDT_ISR_WAKE_IS_Msk)		
+    u32IntSts = WDT->ISR;
+    if (u32IntSts & WDT_ISR_WAKE_IS_Msk)
         printf("     WDT Wake Up Interrupt Occurs.\n");
     else
         printf("     WDT Interrupt Occurs <%d>.\n", u32WDT_Ticks);

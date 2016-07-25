@@ -3,7 +3,7 @@
  * @version  V2.00
  * $Revision: 2 $
  * $Date: 15/06/03 11:15a $
- * @brief    An I2S demo using NAU8822 audio codec, used to play back the 
+ * @brief    An I2S demo using NAU8822 audio codec, used to play back the
  *           input from line-in or MIC interface.
  *
  * @note
@@ -185,7 +185,7 @@ int32_t main (void)
 #else
     I2S_Open(I2S, I2S_MODE_SLAVE, 16000, I2S_DATABIT_16, I2S_MONO, I2S_FORMAT_I2S, I2S_I2S);
 #endif
-    
+
     NVIC_EnableIRQ(I2S_IRQn);
 
     // select source from HXT(12MHz)

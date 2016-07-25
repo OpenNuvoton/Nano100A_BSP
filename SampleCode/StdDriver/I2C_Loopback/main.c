@@ -278,7 +278,7 @@ int32_t main (void)
     printf("\n");
     printf("..... Press a key to continue ...\n");
 //    getchar();
-	
+
     /* Configure I2C0 as master and I2C1 as slave */
     I2C0_Init();
     I2C1_Init();
@@ -310,7 +310,7 @@ int32_t main (void)
 
         /* Wait I2C Tx Finish */
         while (g_u8EndFlag == 0);
-		while(I2C0->CON & I2C_CON_STOP_Msk);
+        while(I2C0->CON & I2C_CON_STOP_Msk);
         g_u8EndFlag = 0;
 
         /* I2C function to read data from slave */
@@ -324,7 +324,7 @@ int32_t main (void)
 
         /* Wait I2C Rx Finish */
         while (g_u8EndFlag == 0);
-		while(I2C0->CON & I2C_CON_STOP_Msk);
+        while(I2C0->CON & I2C_CON_STOP_Msk);
 
         /* Compare Tx and Rx data */
         if (g_u8MasterRxData != g_au8MasterTxData[2]) {
@@ -333,7 +333,7 @@ int32_t main (void)
         }
         printf("[OK]\n");
     }
-	
+
     printf("\nTest Completely !!\n");
     while(1);
 }

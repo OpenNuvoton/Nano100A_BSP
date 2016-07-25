@@ -150,7 +150,7 @@ int32_t SCLIB_Activate(uint32_t num, uint32_t u32EMVCheck);
   *       calling this API, otherwise this API return with \ref SCLIB_ERR_CLOCK error code.
   * @note EMV book 1 is stricter than ISO-7816 on ATR checking. Enable EMV check iff the
   *       application supports EMV cards only.
-  * @note Only use this function instead of \ref SCLIB_Activate if there's large capacitor on VCC pin and 
+  * @note Only use this function instead of \ref SCLIB_Activate if there's large capacitor on VCC pin and
   *       VCC raise slowly.
   */
 int32_t SCLIB_ActivateDelay(uint32_t num, uint32_t u32EMVCheck, uint32_t u32Delay);

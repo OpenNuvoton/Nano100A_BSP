@@ -4,7 +4,7 @@
  * @version  V1.00
  * $Revision: 1 $
  * $Date: 14/09/15 2:23p $
- * @brief    Use the timer pin PC.6 to demonstrate timer free counting mode 
+ * @brief    Use the timer pin PC.6 to demonstrate timer free counting mode
  *           function. Also display the measured input frequency to UART console
  *
  * @note

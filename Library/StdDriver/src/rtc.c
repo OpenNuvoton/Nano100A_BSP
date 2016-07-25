@@ -76,9 +76,9 @@ void RTC_32KCalibration(int32_t i32FrequencyX100)
 
 /**
  *  @brief    This function is used to: \n
- *            1. Write initial key to let RTC start count.  
- *            2. Input parameter indicates start time.      
- *            Null pointer for using default starting time. 
+ *            1. Write initial key to let RTC start count.
+ *            2. Input parameter indicates start time.
+ *            Null pointer for using default starting time.
  *
  *  @param[in]    sPt \n
  *                     Specify the time property and current time. It includes:                          \n
@@ -654,8 +654,8 @@ void RTC_SetAlarmTime(uint32_t u32Hour, uint32_t u32Minute, uint32_t u32Second, 
 
 /**
  *  @brief    This function is used to:                       \n
- *            1. Enable tamper detection function.            
- *            2. Set tamper control register, interrupt.      
+ *            1. Enable tamper detection function.
+ *            2. Set tamper control register, interrupt.
  *
  *  @param[in]    u32PinCondition set tamper detection condition: 1=Falling detect, 0=Rising detect
  *
@@ -673,11 +673,11 @@ void RTC_EnableTamperDetection(uint32_t u32PinCondition)
     else
         RTC->SPRCTL &= ~RTC_SPRCTL_SNOOPEDGE_Msk;
 
-	while(!(RTC->SPRCTL & RTC_SPRCTL_SPRRDY_Msk));
+    while(!(RTC->SPRCTL & RTC_SPRCTL_SPRRDY_Msk));
 
     /* enable snooper pin event detection */
     RTC->SPRCTL |= RTC_SPRCTL_SNOOPEN_Msk;
-	while(!(RTC->SPRCTL & RTC_SPRCTL_SPRRDY_Msk));
+    while(!(RTC->SPRCTL & RTC_SPRCTL_SPRRDY_Msk));
 }
 
 /**

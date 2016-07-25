@@ -107,7 +107,7 @@ void ADC_EnableTimerTrigger(ADC_T *adc,
     ADC->DELSEL &= ~ADC_DELSEL_TMPDMACNT_Msk;
     ADC->CR |= (u32Source << ADC_CR_TMSEL_Pos) | ADC_CR_TMTRGMOD_Msk;
     ADC->DELSEL |= (u32PDMACnt << ADC_DELSEL_TMPDMACNT_Pos);
-  
+
     return;
 }
 

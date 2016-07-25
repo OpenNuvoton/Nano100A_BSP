@@ -98,11 +98,11 @@ void RestorePinSetting()
   */
 void Enter_PowerDown()
 {
-	SYS_UnlockReg();
-	
+    SYS_UnlockReg();
+
     /* Back up original setting */
     SavePinSetting();
-	
+
     /* Set function pin to GPIO mode */
     SYS->PA_L_MFP = 0;
     SYS->PA_H_MFP = 0;
@@ -126,13 +126,13 @@ void Enter_PowerDown()
 
     /* Disable LXT */
     CLK->PWRCTL &= ~CLK_PWRCTL_LXT_EN_Msk; /* disable LXT - 32Khz */
-	CLK->PWRCTL &= ~CLK_PWRCTL_LIRC_EN_Msk;
+    CLK->PWRCTL &= ~CLK_PWRCTL_LIRC_EN_Msk;
 
-	SCB->SCR = SCB_SCR_SLEEPDEEP_Msk;
+    SCB->SCR = SCB_SCR_SLEEPDEEP_Msk;
     CLK->PWRCTL |= (CLK_PWRCTL_PD_EN_Msk | CLK_PWRCTL_WK_DLY_Msk );
 
-	CLK->APBCLK = 0;
-	
+    CLK->APBCLK = 0;
+
     __WFI();
 
     //CLK_PowerDown();
@@ -185,12 +185,12 @@ void SYS_Init(void)
     //SYS->PA_H_MFP &= ~(SYS_PA_H_MFP_PA14_MFP_Msk|SYS_PA_H_MFP_PA15_MFP_Msk);
     //SYS->PA_H_MFP |=  (SYS_PA_H_MFP_PA14_MFP_UART0_RX|SYS_PA_H_MFP_PA15_MFP_UART0_TX);
 
-	PA->OFFD |= (0xFFFF0000);
+    PA->OFFD |= (0xFFFF0000);
     PB->OFFD |= (0xFFFF0000);
     PC->OFFD |= (0xFFFF0000);
     PD->OFFD |= (0xFFFF0000);
     PE->OFFD |= (0xFFFF0000);
-	PF->OFFD |= (0xFFF30000);
+    PF->OFFD |= (0xFFF30000);
 
     /* Lock protected registers */
     //SYS_LockReg();
@@ -222,11 +222,11 @@ int32_t main(void)
     while(1) {
         DEBUG_MSG("Going to Power Down...\n");
 #ifdef __DEBUG_MSG
-		while(!(UART0->FSR & UART_FSR_TX_FULL_F_Msk)) ;
+        while(!(UART0->FSR & UART_FSR_TX_FULL_F_Msk)) ;
         while(!(UART0->FSR & UART_FSR_TE_F_Msk)) ;  /* waits for message send out */
 #endif
         /* Enter power down mode */
-		/* This sample will not wake up*/
+        /* This sample will not wake up*/
         Enter_PowerDown();
 
         DEBUG_MSG("Program resume...\n");

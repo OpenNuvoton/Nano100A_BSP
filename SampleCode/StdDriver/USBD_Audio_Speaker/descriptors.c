@@ -277,8 +277,7 @@ uint8_t gu8ProductStringDesc[] = {
 };
 
 
-uint8_t *gpu8UsbString[4] =
-{
+uint8_t *gpu8UsbString[4] = {
     gu8StringLang,
     gu8VendorStringDesc,
     gu8ProductStringDesc,

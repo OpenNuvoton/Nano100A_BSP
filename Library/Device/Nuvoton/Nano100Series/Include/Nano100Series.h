@@ -8,7 +8,7 @@
  *           bits definitions and memory mapping for NuMicro Nano100 series MCU.
  *
  * @note
- * Copyright (C) 2014 Nuvoton Technology Corp. All rights reserved.
+ * Copyright (C) 2016 Nuvoton Technology Corp. All rights reserved.
  *****************************************************************************/
 /**
    \mainpage NuMicro NANO100AN Driver Reference Guide
@@ -47,46 +47,8 @@
    *
    * <b>Copyright Notice</b>
    *
-   * Copyright (C) 2013 ~ 2015 Nuvoton Technology Corp. All rights reserved.
+   * Copyright (C) 2013 ~ 2016 Nuvoton Technology Corp. All rights reserved.
    */
-/**
-  * \page pg1 NuMicro NANO100AN BSP Directory Structure
-  * Please refer to Readme.pdf under BSP root directory for the BSP directory structure
-  *
-  * \page pg2 Revision History
-  *
-  * <b>Revision 3.01.000 (Released 2015-07-03)</b>
-  * \li 1.  Removed FMC driver FMC_SetBootSource(),FMC_DisableAPUpdate(),FMC_DisableConfigUpdate(),FMC_DisableLDUpdate(),FMC_EnableAPUpdate(),FMC_EnableConfigUpdate(),FMC_EnableLDUpdate() in fmc.h, because there exist functionally identical macros.
-  * \li 2.  Removed DAC driver dac.c and dac.h. Removed samples DAC_PDMATrigger, DAC_SoftwareTrigger, and DAC_TimerTrigger. Removed register and interrupt definitions in Nano100Series.h.
-  * \li 3.  Renamed sample GPIO as GPIO_IOTest. 
-  * \li 4.  Renamed sample PDMA as PDMA_Memory.
-  * \li 5.  Renamed sample SYS as SYS_Control.
-  * \li 6.  Fixed IAR project device type selection mistakes of all samples.
-  * \li 7.  Fixed SC_SET_STOP_BIT_LEN implementation error in sc.h.
-  * \li 8.  Fixed the bug that timer_delay() set prescale in wrong register in timer.c.
-  * \li 9.  Fixed clock driver hard fault problem by dividing HCLK prior to apply new HCLK clock source in clk.c.
-  * \li 10. Fixed CLK_PLLCTL_FB_DV_Msk implementation error in Nano100Series.h. 
-  * \li 11. Fixed FMC_APROM_END definition in fmc.h. 
-  * \li 12. Fixed USB device compliant issues, including samples USBD_HID_Mouse, USBD_HID_Transfer, USBD_Mass_Storage_Flash, and USBD_VCOM_SerialEmulator. USBD driver and header files are also updated.
-  * \li 13. Fixed UART baudrate setting errors in samples USBD_VCOM_And_HID_Keyboard and USBD_VCOM_SerialEmulator.
-  * \li 14. Modified Timer_Open() to not start timer in it, in timer.c.
-  * \li 15. Moved SYS_Unlockreg() from sys.c to sys.h.
-  * \li 16. Update GPIO driver, insert delay to wait I/O stable in gpio.c.
-  * \li 17. Update sample GPIO_PowerDown, unlock control registers when enter power mode.
-  * \li 18. Added sample SYS_TrimIRC.
-  * \li 19. Added sample USBD_HID_Keyboard.
-  * \li 20. Added sample USBD_HID_MouseKeyboard.
-  * \li 21. Added sample USBD_HID_Touch.
-  * \li 22. Added sample USBD_HID_Transfer_And_Keyboard.
-  * \li 23. Added sample USBD_HID_Transfer_And_MSC.
-  * \li 24. Added sample USBD_Mass_Storage_CDROM.
-  * \li 25. Added sample USBD_VCOM_And_HID_Keyboard.
-  * \li 26. Added sample PWRDWN_DEMO.
-  *
-  * <b>Revision 3.00.000</b>
-  * \li Initial V3 BSP release.
-  *
-*/
 #ifndef __NANO100SERIES_H__
 #define __NANO100SERIES_H__
 
@@ -10382,5 +10344,5 @@ typedef volatile unsigned long  vu32;       ///< Define 32-bit unsigned volatile
 
 #endif  // __NANO100SERIES_H__
 
-/*** (C) COPYRIGHT 2014 Nuvoton Technology Corp. ***/
+/*** (C) COPYRIGHT 2016 Nuvoton Technology Corp. ***/
 

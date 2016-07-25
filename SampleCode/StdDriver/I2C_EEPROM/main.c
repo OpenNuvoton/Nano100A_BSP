@@ -215,7 +215,7 @@ int32_t main (void)
 
         /* Wait I2C Tx Finish */
         while (g_u8EndFlag == 0);
-		while(I2C0->CON & I2C_CON_STOP_Msk);
+        while(I2C0->CON & I2C_CON_STOP_Msk);
         g_u8EndFlag = 0;
 
         /* I2C function to read data from slave */
@@ -228,8 +228,8 @@ int32_t main (void)
 
         /* Wait I2C Rx Finish */
         while (g_u8EndFlag == 0);
-		while(I2C0->CON & I2C_CON_STOP_Msk);
-		
+        while(I2C0->CON & I2C_CON_STOP_Msk);
+
         /* Compare data */
         if (g_u8RxData != g_au8TxData[2]) {
             printf("I2C Byte Write/Read Failed, Data 0x%x\n", g_u8RxData);

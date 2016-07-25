@@ -259,7 +259,7 @@ void TIMER_SetTriggerSource(TIMER_T *timer, uint32_t u32Src)
   * @param[in] timer The base address of Timer module
   * @param[in] u32Mask The mask of modules (ADC, DAC and PDMA) trigger by timer. Is the combination of
   *             - \ref TIMER_CTL_PDMA_TEEN_Msk, and
-  *             - \ref TIMER_CTL_ADC_TEEN_Msk, 
+  *             - \ref TIMER_CTL_ADC_TEEN_Msk,
   * @return None
   */
 void TIMER_SetTriggerTarget(TIMER_T *timer, uint32_t u32Mask)

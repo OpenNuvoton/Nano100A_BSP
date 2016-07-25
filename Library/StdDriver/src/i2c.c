@@ -218,7 +218,7 @@ void I2C_SetSlaveAddr(I2C_T *i2c, uint8_t u8SlaveNo, uint8_t u8SlaveAddr, uint8_
         break;
     case 1:
         i2c->SADDR1  = (u8SlaveAddr << 1) | u8GCMode;
-        break; 
+        break;
     }
 }
 

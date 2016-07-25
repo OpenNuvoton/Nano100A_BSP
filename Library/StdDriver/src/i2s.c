@@ -102,7 +102,7 @@ uint32_t I2S_Open(I2S_T *i2s, uint32_t u32MasterSlave, uint32_t u32SampleRate, u
     u32SampleRate = u32BitRate / ((((u32WordWidth>>4) & 0x3) + 1) * 16);
 
     i2s->CTRL |= I2S_CTRL_I2SEN_Msk;
-	
+
     return u32SampleRate;
 }
 

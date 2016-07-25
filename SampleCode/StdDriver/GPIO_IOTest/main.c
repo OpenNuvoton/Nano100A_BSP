@@ -2,7 +2,7 @@
  * @file     main.c
  * @version  V2.10
  * $Date: 15/05/14 9:34a $
- * @brief    Use GPIO driver to control the GPIO pin direction and the high/low state, 
+ * @brief    Use GPIO driver to control the GPIO pin direction and the high/low state,
  *           and show how to use GPIO interrupts.
  *
  * @note
@@ -123,7 +123,7 @@ void SYS_Init(void)
     /*---------------------------------------------------------------------------------------------------------*/
     /* Set PA multi-function pins for UART0 RXD and TXD */
     SYS->PA_H_MFP &= ~( SYS_PA_H_MFP_PA15_MFP_Msk | SYS_PA_H_MFP_PA14_MFP_Msk);
-    SYS->PA_H_MFP |= (SYS_PA_H_MFP_PA15_MFP_UART0_TX|SYS_PA_H_MFP_PA14_MFP_UART0_RX);	
+    SYS->PA_H_MFP |= (SYS_PA_H_MFP_PA15_MFP_UART0_TX|SYS_PA_H_MFP_PA14_MFP_UART0_RX);
 
     /* Lock protected registers */
     SYS_LockReg();
@@ -134,7 +134,7 @@ void UART0_Init(void)
     /* Reset IP */
     SYS_ResetModule(UART0_RST);
     UART0->BAUD = 0x67;              /* Baud Rate:115200  OSC:12MHz */
-    UART0->TLCTL = 0x03;             /* Character len is 8 bits */	
+    UART0->TLCTL = 0x03;             /* Character len is 8 bits */
 }
 
 /*---------------------------------------------------------------------------------------------------------*/
@@ -197,7 +197,7 @@ int main (void)
     /*-----------------------------------------------------------------------------------------------------*/
     /* GPIO Interrupt Function Test                                                                        */
     /*-----------------------------------------------------------------------------------------------------*/
-    printf("\n  GPB5, GPE2, GPB14(EINT0) and GPB15(EINT1) are used to test interrupt\n  and control LED (GPA7)\n");    
+    printf("\n  GPB5, GPE2, GPB14(EINT0) and GPB15(EINT1) are used to test interrupt\n  and control LED (GPA7)\n");
 
     /*Configure PA7 for LED control */
     GPIO_SetMode(PA, BIT7, GPIO_PMD_OUTPUT);

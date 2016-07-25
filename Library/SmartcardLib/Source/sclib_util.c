@@ -778,7 +778,7 @@ void _SCLIB_StartColdReset(uint32_t num)
 
     // disable Timer1 interrupt and use polling method to check time-out happened
     sc->IER &= ~SC_IER_TMR1_IE_Msk;
-    sc->CTL |= SC_CTL_DIS_RX_Msk;  
+    sc->CTL |= SC_CTL_DIS_RX_Msk;
     // VCC high
     SC_SET_VCC_PIN(sc, SC_PIN_STATE_HIGH);
     // Clock
@@ -811,7 +811,7 @@ void _SCLIB_StartColdReset(uint32_t num)
     dev->errno = 0;
     dev->op_state = SCLIB_OP_ATR_READ;
     sc->CTL &= ~SC_CTL_DIS_RX_Msk;                            // enable RX
-    
+
     // wait 42036 clock for ATR
     SC_StartTimer(sc, 0, SC_TMR_MODE_0, (42000/372) + 13);
 

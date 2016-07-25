@@ -3,7 +3,7 @@
  * @version  V1.00
  * $Revision: 2 $
  * $Date: 15/05/28 6:07p $
- * @brief    Show how to branch programs between LDROM, APROM start page, 
+ * @brief    Show how to branch programs between LDROM, APROM start page,
  *           and APROM other page.
  *
  * @note
@@ -107,24 +107,24 @@ int32_t main (void)
 
         switch (u8Item) {
         case '0':
-        	sp = FMC_Read(LD_BOOT_CODE_ENTRY);
+            sp = FMC_Read(LD_BOOT_CODE_ENTRY);
             func =  (FUNC_PTR *)FMC_Read(LD_BOOT_CODE_ENTRY+4);
-        
+
             printf("branch_to address 0x%x\n", (int)func);
             printf("\n\nChange VECMAP and branch to ld boot code...\n");
             while (!UART_IS_TX_EMPTY(UART0));
 
             FMC_SetVectorPageAddr(LD_BOOT_CODE_ENTRY);
 
-    		/* Switch HCLK clock source to HIRC */
-    		CLK->CLKSEL0 = (CLK->CLKSEL0 & ~CLK_CLKSEL0_HCLK_S_Msk) | CLK_CLKSEL0_HCLK_S_HIRC;
+            /* Switch HCLK clock source to HIRC */
+            CLK->CLKSEL0 = (CLK->CLKSEL0 & ~CLK_CLKSEL0_HCLK_S_Msk) | CLK_CLKSEL0_HCLK_S_HIRC;
 
             __set_SP(sp);
             func();
             break;
 
         case '1':
-        	sp = FMC_Read(USER_AP_ENTRY);
+            sp = FMC_Read(USER_AP_ENTRY);
             func =  (FUNC_PTR *)FMC_Read(USER_AP_ENTRY+4);
 
             printf("branch_to address 0x%x\n", (int)func);
@@ -133,8 +133,8 @@ int32_t main (void)
 
             FMC_SetVectorPageAddr(USER_AP_ENTRY);
 
-    		/* Switch HCLK clock source to HIRC */
-    		CLK->CLKSEL0 = (CLK->CLKSEL0 & ~CLK_CLKSEL0_HCLK_S_Msk) | CLK_CLKSEL0_HCLK_S_HIRC;
+            /* Switch HCLK clock source to HIRC */
+            CLK->CLKSEL0 = (CLK->CLKSEL0 & ~CLK_CLKSEL0_HCLK_S_Msk) | CLK_CLKSEL0_HCLK_S_HIRC;
 
             __set_SP(sp);
             func();

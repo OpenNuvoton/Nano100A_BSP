@@ -4,7 +4,7 @@
  * @version  V1.00
  * $Revision: 2 $
  * $Date: 14/10/01 3:06p $
- * @brief    Use the timer pin PB.8 to demonstrate inter timer trigger mode 
+ * @brief    Use the timer pin PB.8 to demonstrate inter timer trigger mode
  *           function. Also display the measured input frequency to UART console.
  *
  * @note
@@ -119,7 +119,7 @@ int main(void)
         // Configure PB.8 as counter pin
         SYS->PB_H_MFP |= SYS_PB_H_MFP_PB8_MFP_TMR0_EXT;
         while(complete == 0);
-        
+
     }
 
 }
