@@ -1,5 +1,5 @@
 /****************************************************************************//**
- * @file     sdcard.h
+ * @file     SDCard.h
  * @version  V1.00
  * $Revision: 3 $
  * $Date: 15/06/03 3:52p $
@@ -11,7 +11,7 @@
 #ifndef __SDCARD_H__
 #define __SDCARD_H__
 
-#include "nano100series.h"
+#include "Nano100Series.h"
 
 #ifdef __cplusplus
 extern "C"
