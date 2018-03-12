@@ -110,7 +110,8 @@ int main(void)
     // We need capture interrupt
     NVIC_EnableIRQ(TMR1_IRQn);
 
-    while(1) {
+    while(1)
+    {
         complete = 0;
         // Make sure PB.8 function is GPIO. For Nano100AN, pin function cannot set before inter timer trigger enabled.
         SYS->PB_H_MFP &= ~SYS_PB_H_MFP_PB8_MFP_Msk;

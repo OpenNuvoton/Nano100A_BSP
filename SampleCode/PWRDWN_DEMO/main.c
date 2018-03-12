@@ -219,7 +219,8 @@ int32_t main(void)
     DEBUG_MSG("\nNANO130 NuTiny EVB Demo Program V1.0.0\n");
     DEBUG_MSG("[Power Down Demo]\n");
 
-    while(1) {
+    while(1)
+    {
         DEBUG_MSG("Going to Power Down...\n");
 #ifdef __DEBUG_MSG
         while(!(UART0->FSR & UART_FSR_TX_FULL_F_Msk)) ;

@@ -78,7 +78,8 @@ int main(void)
     TIMER_Start(TIMER0);
     /* Unlock protected registers */
     SYS_UnlockReg();
-    while(1) {
+    while(1)
+    {
         // Wait 'til UART FIFO empty to get a cleaner console out
         while(!(UART0->FSR & UART_FSR_TE_F_Msk));
         CLK_PowerDown();

@@ -53,13 +53,15 @@ void RTC_IRQHandler()
     printf("RTC_IRQHandler running...\n");
 
     /* RTC Tick interrupt */
-    if ((RTC->RIER & RTC_RIER_TIER_Msk) && (RTC->RIIR & RTC_RIIR_TIF_Msk)) {
+    if ((RTC->RIER & RTC_RIER_TIER_Msk) && (RTC->RIIR & RTC_RIIR_TIF_Msk))
+    {
         printf("RTC Tick Interrupt.\n");
         RTC->RIIR = RTC_RIIR_TIF_Msk;
     }
 
     /* RTC Alarm interrupt */
-    if ((RTC->RIER & RTC_RIER_AIER_Msk) && (RTC->RIIR & RTC_RIIR_AIF_Msk)) {
+    if ((RTC->RIER & RTC_RIER_AIER_Msk) && (RTC->RIIR & RTC_RIIR_AIF_Msk))
+    {
         printf("RTC Alarm Interrupt.\n");
         RTC->RIIR = RTC_RIIR_AIF_Msk;
 
@@ -70,7 +72,8 @@ void RTC_IRQHandler()
         planNextRTCInterrupt(&sCurTime);
     }
 
-    if ((RTC->RIER & RTC_RIER_SNOOPIER_Msk) && (RTC->RIIR & RTC_RIIR_SNOOPIF_Msk)) { /* snooper interrupt occurred */
+    if ((RTC->RIER & RTC_RIER_SNOOPIER_Msk) && (RTC->RIIR & RTC_RIIR_SNOOPIF_Msk))   /* snooper interrupt occurred */
+    {
         RTC->RIIR = RTC_RIIR_SNOOPIF_Msk;
     }
 
@@ -86,53 +89,69 @@ void planNextRTCInterrupt(S_RTC_TIME_DATA_T *sCurTime)
     // plan next interrupt timing
     if(sCurTime->u32Minute < 59)
         sCurTime->u32Minute += 1;
-    else {
+    else
+    {
         if(sCurTime->u32Hour < 23)
             sCurTime->u32Hour += 1;
-        else {  // next day
+        else    // next day
+        {
             sCurTime->u32Hour = 0;
 
             // new year first day
-            if(sCurTime->u32Month==12 && sCurTime->u32Day==31) {
+            if(sCurTime->u32Month==12 && sCurTime->u32Day==31)
+            {
                 sCurTime->u32Year += 1;
                 sCurTime->u32Month = 1;
                 sCurTime->u32Day = 1;
-            } else if(sCurTime->u32Month==1 ||
-                      sCurTime->u32Month==3 ||
-                      sCurTime->u32Month==5 ||
-                      sCurTime->u32Month==7 ||
-                      sCurTime->u32Month==8 ||
-                      sCurTime->u32Month==10 ||
-                      sCurTime->u32Month==12) { // 1,3,5,7,8,10,12 31-day month
+            }
+            else if(sCurTime->u32Month==1 ||
+                    sCurTime->u32Month==3 ||
+                    sCurTime->u32Month==5 ||
+                    sCurTime->u32Month==7 ||
+                    sCurTime->u32Month==8 ||
+                    sCurTime->u32Month==10 ||
+                    sCurTime->u32Month==12)   // 1,3,5,7,8,10,12 31-day month
+            {
                 if(sCurTime->u32Day < 31)
                     sCurTime->u32Day += 1;
-                else {
+                else
+                {
                     sCurTime->u32Day = 1;
                     sCurTime->u32Month += 1;
                 }
-            } else if(sCurTime->u32Month==2) { // 2, 28 or 29-day month
-                if(RTC_IS_LEAP_YEAR()) { // leap year
+            }
+            else if(sCurTime->u32Month==2)     // 2, 28 or 29-day month
+            {
+                if(RTC_IS_LEAP_YEAR())   // leap year
+                {
                     if(sCurTime->u32Day < 29)
                         sCurTime->u32Day += 1;
-                    else {
-                        sCurTime->u32Day = 1;
-                        sCurTime->u32Month += 1;
-                    }
-                } else {
-                    if(sCurTime->u32Day < 28)
-                        sCurTime->u32Day += 1;
-                    else {
+                    else
+                    {
                         sCurTime->u32Day = 1;
                         sCurTime->u32Month += 1;
                     }
                 }
-            } else if(sCurTime->u32Month==4 ||
-                      sCurTime->u32Month==6 ||
-                      sCurTime->u32Month==9 ||
-                      sCurTime->u32Month==11) { // 4,6,9,11 30-day
+                else
+                {
+                    if(sCurTime->u32Day < 28)
+                        sCurTime->u32Day += 1;
+                    else
+                    {
+                        sCurTime->u32Day = 1;
+                        sCurTime->u32Month += 1;
+                    }
+                }
+            }
+            else if(sCurTime->u32Month==4 ||
+                    sCurTime->u32Month==6 ||
+                    sCurTime->u32Month==9 ||
+                    sCurTime->u32Month==11)   // 4,6,9,11 30-day
+            {
                 if(sCurTime->u32Day < 30)
                     sCurTime->u32Day += 1;
-                else {
+                else
+                {
                     sCurTime->u32Day = 1;
                     sCurTime->u32Month += 1;
                 }
@@ -355,7 +374,8 @@ int32_t main(void)
     planNextRTCInterrupt(&sCurTime);
 
     _Wakeup_Flag = 0;
-    while(1) {
+    while(1)
+    {
         printf("\nGoing to Power Down...\n");
 
         while(!(UART0->FSR & UART_FSR_TE_F_Msk)) ;  /* waits for message send out */
@@ -365,7 +385,8 @@ int32_t main(void)
 
         printf("Program resume...\n");
 
-        if (_Wakeup_Flag == 1) {
+        if (_Wakeup_Flag == 1)
+        {
             _Wakeup_Flag = 0;
 
             printf("System Wakeup success!! \n");
