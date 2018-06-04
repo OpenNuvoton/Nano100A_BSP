@@ -89,7 +89,8 @@ extern "C"
 /**
   * @brief  A structure holds smartcard information
   */
-typedef struct {
+typedef struct
+{
     uint32_t T;                         ///< Protocol, ether \ref SCLIB_PROTOCOL_T0 or \ref SCLIB_PROTOCOL_T1.
     uint32_t ATR_Len;                   ///< ATR length, between SCLIB_MAX_ATR_LEN and SCLIB_MIN_ATR_LEN
     uint8_t ATR_Buf[SCLIB_MAX_ATR_LEN]; ///< Buffer holds ATR answered by smartcard
@@ -98,7 +99,8 @@ typedef struct {
 /**
   * @brief  A structure holds smartcard attribute, including convention, guard time, waiting time, IFCS... etc.
   */
-typedef struct {
+typedef struct
+{
     uint8_t Fi;        ///< F index
     uint8_t Di;        ///< D index
     uint8_t conv;      ///< Convention, direct or inverse. 0 direct, 1 inverse
