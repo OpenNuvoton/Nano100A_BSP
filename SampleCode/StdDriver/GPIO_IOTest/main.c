@@ -23,6 +23,7 @@
  */
 void GPABC_IRQHandler(void)
 {
+	uint32_t reg;
     /* To check if PB.5 interrupt occurred */
     if (PB->ISRC & BIT5)
     {
@@ -34,9 +35,12 @@ void GPABC_IRQHandler(void)
     else
     {
         /* Un-expected interrupt. Just clear all PORTA, PORTB, PORTC interrupts */
-        PA->ISRC = PA->ISRC;
-        PB->ISRC = PB->ISRC;
-        PC->ISRC = PC->ISRC;
+        reg = PA->ISRC;
+        PA->ISRC = reg;
+        reg = PB->ISRC;
+        PB->ISRC = reg;
+        reg = PC->ISRC;
+        PC->ISRC = reg;
         printf("Un-expected interrupts. \n");
     }
 }
@@ -53,6 +57,7 @@ void GPABC_IRQHandler(void)
  */
 void GPDEF_IRQHandler(void)
 {
+	uint32_t reg;
     /* To check if PE.2 interrupt occurred */
     if (PE->ISRC & BIT2)
     {
@@ -63,9 +68,12 @@ void GPDEF_IRQHandler(void)
     else
     {
         /* Un-expected interrupt. Just clear all PORTD, PORTE and PORTF interrupts */
-        PD->ISRC = PD->ISRC;
-        PE->ISRC = PE->ISRC;
-        PF->ISRC = PF->ISRC;
+        reg = PD->ISRC;
+        PD->ISRC = reg;
+        reg = PE->ISRC;
+        PE->ISRC = reg;
+        reg = PF->ISRC;
+        PF->ISRC = reg;
         printf("Un-expected interrupts. \n");
     }
 }
@@ -227,13 +235,13 @@ int main (void)
     NVIC_EnableIRQ(GPDEF_IRQn);
 
     /* Configure PB14 as EINT0 pin and enable interrupt by falling edge trigger */
-    SYS->PB_H_MFP = SYS->PB_H_MFP & ~0x07000000 | 0x01000000;
+    SYS->PB_H_MFP = (SYS->PB_H_MFP & (~0x07000000)) | 0x01000000;
     GPIO_SetMode(PB, BIT14, GPIO_PMD_INPUT);
     GPIO_EnableEINT0(PB, 14, GPIO_INT_FALLING);
     NVIC_EnableIRQ(EINT0_IRQn);
 
     /* Configure PB15 as EINT1 pin and enable interrupt by rising and falling edge trigger */
-    SYS->PB_H_MFP = SYS->PB_H_MFP & ~0x70000000 | 0x10000000;
+    SYS->PB_H_MFP = (SYS->PB_H_MFP & (~0x70000000)) | 0x10000000;
     GPIO_SetMode(PB, BIT15, GPIO_PMD_INPUT);
     GPIO_EnableEINT1(PB, 15, GPIO_INT_BOTH_EDGE);
     NVIC_EnableIRQ(EINT1_IRQn);

@@ -22,6 +22,32 @@ void __asm __set_SP(uint32_t _sp)
 }
 #endif
 
+/**
+ * @brief    Routine to get a char
+ * @param    None
+ * @returns  Get value from UART debug port or semihost
+ * @details  Wait UART debug port or semihost to input a char.
+ */
+static char GetChar(void)
+{
+    while(1)
+    {
+        if ((UART0->FSR & UART_FSR_RX_EMPTY_F_Msk) == 0)
+        {
+            return (UART0->RBR);
+        }
+    }
+}
+
+extern void SendChar_ToUART(int ch);
+
+static void PutString(char *str)
+{
+    while (*str != '\0')
+    {
+        SendChar_ToUART(*str++);
+    }
+}
 
 void SYS_Init(void)
 {
@@ -87,7 +113,7 @@ int32_t main (void)
 
     /* Init System, IP clock and multi-function I/O */
     SYS_Init();
-    /* Init UART0 for printf */
+    /* Init UART0 for PutString */
     UART0_Init();
 
     /* Enable FMC ISP function */
@@ -96,25 +122,24 @@ int32_t main (void)
 
     do
     {
-        printf("\n");
-        printf("+----------------------------------------------+\n");
-        printf("|       LD boot program running on LDROM       |\n");
-        printf("+----------------------------------------------|\n");
-        printf("| [0] Run ISP program (at APROM %dK)           |\n", USER_AP_MAX_SIZE/1024);
-        printf("| [1] Branch and run APROM program             |\n");
-        printf("| [2] Set boot mode as boot from APROM.        |\n");
-        printf("+----------------------------------------------+\n");
-        printf("Please select...");
-        u8Item = getchar();
-        printf("%c\n", u8Item);
+        PutString("\n");
+        PutString("+----------------------------------------------+\n");
+        PutString("|       LD boot program running on LDROM       |\n");
+        PutString("+----------------------------------------------|\n");
+        PutString("| [0] Run ISP program (at APROM 22K)           |\n");
+        PutString("| [1] Branch and run APROM program             |\n");
+        PutString("| [2] Set boot mode as boot from APROM.        |\n");
+        PutString("+----------------------------------------------+\n");
+        PutString("Please select...");
+        u8Item = GetChar();
 
         switch (u8Item)
         {
         case '0':
             sp = FMC_Read(ISP_CODE_BASE);
             func =  (FUNC_PTR *)FMC_Read(ISP_CODE_ENTRY+4);
-            printf("branch_to address 0x%x\n", (int)func);
-            printf("\nChange VECMAP and branch to ISP code...\n");
+            PutString("Please make sure isp.bin is in APROM address 0x5800.\n");
+            PutString("If not, please run \"[1] Branch and run APROM program\"\n");
             while (!UART_IS_TX_EMPTY(UART0));
 
             FMC_SetVectorPageAddr(ISP_CODE_BASE);
@@ -122,16 +147,18 @@ int32_t main (void)
             /* Switch HCLK clock source to HIRC */
             CLK->CLKSEL0 = (CLK->CLKSEL0 & ~CLK_CLKSEL0_HCLK_S_Msk) | CLK_CLKSEL0_HCLK_S_HIRC;
 
+#if defined (__GNUC__) && !defined(__ARMCC_VERSION) /* for GNU C compiler */
+            asm("msr msp, %0" : : "r" (sp));
+#else
             __set_SP(sp);
+#endif
             func();
-            while (1);
+            break;
 
         case '1':
             sp = FMC_Read(USER_AP_ENTRY);
             func =  (FUNC_PTR *)FMC_Read(USER_AP_ENTRY+4);
-            printf("APROM code's SP is 0x%x\n", sp);
-            printf("branch_to address 0x%x\n", (int)func);
-            printf("\n\nChange VECMAP and branch to user application...\n");
+            PutString("\n\nChange VECMAP and branch to user application...\n");
             while (!UART_IS_TX_EMPTY(UART0));
 
             FMC_SetVectorPageAddr(USER_AP_ENTRY);
@@ -139,9 +166,13 @@ int32_t main (void)
             /* Switch HCLK clock source to HIRC */
             CLK->CLKSEL0 = (CLK->CLKSEL0 & ~CLK_CLKSEL0_HCLK_S_Msk) | CLK_CLKSEL0_HCLK_S_HIRC;
 
+#if defined (__GNUC__) && !defined(__ARMCC_VERSION) /* for GNU C compiler */
+            asm("msr msp, %0" : : "r" (sp));
+#else
             __set_SP(sp);
+#endif
             func();
-            while (1);
+            break;
 
         case '2':
             FMC_ENABLE_CFG_UPDATE();

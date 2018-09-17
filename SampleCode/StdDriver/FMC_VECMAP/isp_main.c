@@ -121,7 +121,11 @@ int32_t main (void)
             /* Switch HCLK clock source to HIRC */
             CLK->CLKSEL0 = (CLK->CLKSEL0 & ~CLK_CLKSEL0_HCLK_S_Msk) | CLK_CLKSEL0_HCLK_S_HIRC;
 
+#if defined (__GNUC__) && !defined(__ARMCC_VERSION) /* for GNU C compiler */
+            asm("msr msp, %0" : : "r" (sp));
+#else
             __set_SP(sp);
+#endif
             func();
             break;
 
@@ -138,7 +142,11 @@ int32_t main (void)
             /* Switch HCLK clock source to HIRC */
             CLK->CLKSEL0 = (CLK->CLKSEL0 & ~CLK_CLKSEL0_HCLK_S_Msk) | CLK_CLKSEL0_HCLK_S_HIRC;
 
+#if defined (__GNUC__) && !defined(__ARMCC_VERSION) /* for GNU C compiler */
+            asm("msr msp, %0" : : "r" (sp));
+#else
             __set_SP(sp);
+#endif
             func();
             break;
 

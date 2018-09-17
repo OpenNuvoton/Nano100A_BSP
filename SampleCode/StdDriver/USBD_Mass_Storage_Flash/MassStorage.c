@@ -739,6 +739,9 @@ void MSC_ProcessCmd(void)
                 {
                     g_u8Remove = 1;
                 }
+                g_u8BulkState = BULK_IN;
+                MSC_AckCmd();
+                return;
             }
             case UFI_VERIFY_10:
             {

@@ -6,7 +6,7 @@
  * @brief    Smartcard library header file
  *
  * @note
- * Copyright (C) 2013-2014 Nuvoton Technology Corp. All rights reserved.
+ * Copyright (C) 2013-2018 Nuvoton Technology Corp. All rights reserved.
  *****************************************************************************/
 #ifndef __SCLIB_H__
 #define __SCLIB_H__
@@ -80,9 +80,9 @@ extern "C"
 #define SCLIB_ERR_DEACTIVE                      0x0000F001  ///< Smartcard is de-active
 #define SCLIB_ERR_CARDBUSY                      0x0000F002  ///< Smartcard is busy, previous transmission is not complete yet
 
-/*@}*/ /* end of group NUC400_SCLIB_EXPORTED_CONSTANTS */
+/*@}*/ /* end of group NANO100_SCLIB_EXPORTED_CONSTANTS */
 
-/** @addtogroup NUC400_SCLIB_EXPORTED_STRUCTS Smartcard Library Exported Structs
+/** @addtogroup NANO100_SCLIB_EXPORTED_STRUCTS Smartcard Library Exported Structs
   @{
 */
 
@@ -243,7 +243,12 @@ int32_t SCLIB_SetIFSD(uint32_t num, uint8_t size);
   *         Application can provide its own time extension function. For example, and CCID reader
   *         can use this function to report this status to PC. See CCID rev 1.1 Table 6.2-3
   */
+#if defined (__GNUC__)
+void SCLIB_RequestTimeExtension () __attribute__ ((weak));
+void SCLIB_RequestTimeExtension(uint32_t u32Protocol);
+#else
 __weak void SCLIB_RequestTimeExtension(uint32_t u32Protocol);
+#endif
 
 /**
   * @brief Process card detect event in IRQ handler
@@ -299,4 +304,4 @@ uint32_t SCLIB_CheckErrorEvent(uint32_t num);
 
 /*@}*/ /* end of group NANO100_Library */
 
-/*** (C) COPYRIGHT 2013-2014 Nuvoton Technology Corp. ***/
+/*** (C) COPYRIGHT 2013-2018 Nuvoton Technology Corp. ***/

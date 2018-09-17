@@ -10,6 +10,10 @@
 #include <stdio.h>
 #include "Nano100Series.h"
 
+#if defined (__GNUC__) && !defined(__ARMCC_VERSION) && defined(OS_USE_SEMIHOSTING)
+extern void initialise_monitor_handles(void);
+#endif
+
 void SYS_Init(void)
 {
     /*---------------------------------------------------------------------------------------------------------*/
@@ -23,10 +27,10 @@ void SYS_Init(void)
     CLK->PWRCTL |= (0x1 << CLK_PWRCTL_HXT_EN_Pos); // HXT Enabled
 
     /* Waiting for 12MHz clock ready */
-    while((CLK->CLKSTATUS & CLK_CLKSTATUS_HXT_STB_Msk) != CLK_CLKSTATUS_HXT_STB_Msk)
+    while((CLK->CLKSTATUS & CLK_CLKSTATUS_HXT_STB_Msk) != CLK_CLKSTATUS_HXT_STB_Msk);
 
-        /* Switch HCLK clock source to XTAL */
-        CLK->CLKSEL0 &= ~CLK_CLKSEL0_HCLK_S_Msk;
+    /* Switch HCLK clock source to XTAL */
+    CLK->CLKSEL0 &= ~CLK_CLKSEL0_HCLK_S_Msk;
     CLK->CLKSEL0 |= CLK_CLKSEL0_HCLK_S_HXT;
 
     /* Enable IP clock */
@@ -57,6 +61,10 @@ int32_t main()
     int8_t item;
 
     SYS_Init();
+
+#if defined (__GNUC__) && !defined(__ARMCC_VERSION) && defined(OS_USE_SEMIHOSTING)
+    initialise_monitor_handles();
+#endif
 
     printf("\n Start SEMIHOST test: \n");
 
