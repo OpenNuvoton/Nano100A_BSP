@@ -406,14 +406,14 @@ static __INLINE void USBD_SetStall(uint8_t epnum)
     uint32_t u32Cfg;
     int i;
 
-    for (i=0; i<USBD_MAX_EP; i++)
+    for (i = 0; i < USBD_MAX_EP; i++)
     {
         u32CfgAddr = (uint32_t)(i << 4) + (uint32_t)&USBD->EP[0].CFG; /* USBD_CFG0 */
-        u32Cfg = *((__IO uint32_t *) (u32CfgAddr));
+        u32Cfg = *((__IO uint32_t *)(u32CfgAddr));
 
-        if((u32Cfg & 0xf) == epnum)
+        if ((u32Cfg & 0xf) == epnum)
         {
-            *((__IO uint32_t *) (u32CfgAddr)) = (u32Cfg | USBD_CFG_SSTALL);
+            *((__IO uint32_t *)(u32CfgAddr)) = (u32Cfg | USBD_CFG_SSTALL);
             break;
         }
     }
@@ -433,14 +433,14 @@ static __INLINE void USBD_ClearStall(uint8_t epnum)
     uint32_t u32Cfg;
     int i;
 
-    for (i=0; i<USBD_MAX_EP; i++)
+    for (i = 0; i < USBD_MAX_EP; i++)
     {
         u32CfgAddr = (uint32_t)(i << 4) + (uint32_t)&USBD->EP[0].CFG; /* USBD_CFG0 */
-        u32Cfg = *((__IO uint32_t *) (u32CfgAddr));
+        u32Cfg = *((__IO uint32_t *)(u32CfgAddr));
 
-        if((u32Cfg & 0xf) == epnum)
+        if ((u32Cfg & 0xf) == epnum)
         {
-            *((__IO uint32_t *) (u32CfgAddr)) = (u32Cfg & ~USBD_CFG_SSTALL);
+            *((__IO uint32_t *)(u32CfgAddr)) = (u32Cfg & ~USBD_CFG_SSTALL);
             break;
         }
     }
@@ -461,14 +461,15 @@ static __INLINE uint32_t USBD_GetStall(uint8_t epnum)
     uint32_t u32Cfg;
     int i;
 
-    for (i=0; i<USBD_MAX_EP; i++)
+    for (i = 0; i < USBD_MAX_EP; i++)
     {
         u32CfgAddr = (uint32_t)(i << 4) + (uint32_t)&USBD->EP[0].CFG; /* USBD_CFG0 */
-        u32Cfg = *((__IO uint32_t *) (u32CfgAddr));
+        u32Cfg = *((__IO uint32_t *)(u32CfgAddr));
 
-        if((u32Cfg & 0xf) == epnum)
+        if ((u32Cfg & 0xf) == epnum)
             break;
     }
+
     return (u32Cfg & USBD_CFG_SSTALL);
 }
 
@@ -479,6 +480,7 @@ extern volatile uint8_t g_usbd_RemoteWakeupEn;
 typedef void (*VENDOR_REQ)(void); /*!<USB Vendor request callback function */
 typedef void (*CLASS_REQ)(void); /*!<USB Class request callback function */
 typedef void (*SET_INTERFACE_REQ)(uint32_t u32AltInterface); /*!<USB Standard request "Set Interface" callback function */
+typedef void (*SET_CONFIG_CB)(void);       /*!< Functional pointer type declaration for USB set configuration request callback handler */
 
 /*--------------------------------------------------------------------*/
 void USBD_Open(S_USBD_INFO_T *param, CLASS_REQ pfnClassReq, SET_INTERFACE_REQ pfnSetInterface);
@@ -492,6 +494,7 @@ void USBD_PrepareCtrlOut(uint8_t *pu8Buf, uint32_t u32Size);
 void USBD_CtrlOut(void);
 void USBD_SwReset(void);
 void USBD_SetVendorRequest(VENDOR_REQ pfnVendorReq);
+void USBD_SetConfigCallback(SET_CONFIG_CB pfnSetConfigCallback);
 void USBD_LockEpStall(uint32_t u32EpBitmap);
 
 
