@@ -16,8 +16,8 @@
 #define PLL_CLOCK               192000000
 #define HCLK_DIV                        1
 
-#define nRTSPin                 (PE12)
-#define REVEIVE_MODE            (0)
+#define nRTSPin                 (PA0)
+#define RECEIVE_MODE            (0)
 #define TRANSMIT_MODE           (1)
 
 void SYS_Init(void)
@@ -58,10 +58,10 @@ void SYS_Init(void)
     /*---------------------------------------------------------------------------------------------------------*/
     /* Init I/O Multi-function                                                                                 */
     /*---------------------------------------------------------------------------------------------------------*/
-    PE->PMD = (PE->PMD & ~(0x3ul << (12 << 1))) | (GPIO_PMD_OUTPUT << (12 << 1));
-    nRTSPin = REVEIVE_MODE;
+    PA->PMD = (PA->PMD & ~(GP_PMD_PMD0_Msk) | (GPIO_PMD_OUTPUT << GP_PMD_PMD0_Pos));
+    nRTSPin = RECEIVE_MODE;
     SYS->PA_L_MFP = (SYS->PA_L_MFP & ~(SYS_PA_L_MFP_PA2_MFP_Msk)) | SYS_PA_L_MFP_PA2_MFP_UART1_RX;
-    SYS->PA_L_MFP = (SYS->PA_L_MFP & ~(SYS_PA_L_MFP_PA3_MFP_Msk)) | SYS_PA_L_MFP_PA3_MFP_UART1_TX;
+    SYS->PB_L_MFP = (SYS->PB_L_MFP & ~(SYS_PB_L_MFP_PB5_MFP_Msk)) | SYS_PB_L_MFP_PB5_MFP_UART1_TX;
 }
 
 /*---------------------------------------------------------------------------------------------------------*/
@@ -121,8 +121,9 @@ _ISP:
             PutString();
 
             while ((UART1->FSR & UART_FSR_TX_EMPTY_F_Msk) == 0);
+            while ((UART1->FSR & UART_FSR_TE_F_Msk) == 0);
 
-            nRTSPin = REVEIVE_MODE;
+            nRTSPin = RECEIVE_MODE;
             NVIC_EnableIRQ(UART1_IRQn);
         }
     }
