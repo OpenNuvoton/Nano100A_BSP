@@ -149,7 +149,7 @@
             <RestoreSysVw>1</RestoreSysVw>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>19</TargetSelection>
+          <TargetSelection>20</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -173,7 +173,7 @@
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
-            <DriverSelection>4106</DriverSelection>
+            <DriverSelection>4107</DriverSelection>
           </Flash1>
           <bUseTDR>0</bUseTDR>
           <Flash2>Bin\Nu_Link.dll</Flash2>
@@ -456,6 +456,11 @@
               <FileType>1</FileType>
               <FilePath>..\targetdev.c</FilePath>
             </File>
+            <File>
+              <FileName>spi_transfer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\spi_transfer.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -465,31 +470,6 @@
               <FileName>clk.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\..\Library\StdDriver\src\clk.c</FilePath>
-            </File>
-            <File>
-              <FileName>fmc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\StdDriver\src\fmc.c</FilePath>
-            </File>
-            <File>
-              <FileName>gpio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\StdDriver\src\gpio.c</FilePath>
-            </File>
-            <File>
-              <FileName>spi.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\StdDriver\src\spi.c</FilePath>
-            </File>
-            <File>
-              <FileName>sys.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\StdDriver\src\sys.c</FilePath>
-            </File>
-            <File>
-              <FileName>timer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\..\Library\StdDriver\src\timer.c</FilePath>
             </File>
           </Files>
         </Group>
