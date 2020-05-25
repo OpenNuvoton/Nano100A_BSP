@@ -5,6 +5,7 @@
  *           bits definitions and memory mapping for NuMicro Nano100 series MCU.
  *
  * @note
+ * SPDX-License-Identifier: Apache-2.0
  * Copyright (C) 2018 Nuvoton Technology Corp. All rights reserved.
  *****************************************************************************/
 /**
