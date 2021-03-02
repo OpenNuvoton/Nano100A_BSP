@@ -107,7 +107,7 @@ void UART0_IRQHandler(void)
 
     if((u32IntStatus & UART_ISR_RDA_IS_Msk) || (u32IntStatus & UART_ISR_RTO_IS_Msk))
     {
-        /* Receiver FIFO threashold level is reached or Rx time out */
+        /* Receiver FIFO threshold level is reached or Rx time out */
 
         /* Get all the input characters */
         while (!(UART0->FSR & UART_FSR_RX_EMPTY_F_Msk))
@@ -134,7 +134,7 @@ void UART0_IRQHandler(void)
     if(u32IntStatus & UART_ISR_THRE_IS_Msk)
     {
 
-        if(comTbytes)
+        if(comTbytes && (UART0->IER & UART_IER_THRE_IE_Msk))
         {
             /* Fill the Tx FIFO */
             size = comTbytes;
@@ -165,10 +165,10 @@ void VCOM_TransferData(void)
 {
     int32_t i, i32Len;
 
-    /* Check wether USB is ready for next packet or not*/
+    /* Check whether USB is ready for next packet or not*/
     if(gu32TxSize == 0)
     {
-        /* Check wether we have new COM Rx data to send to USB or not */
+        /* Check whether we have new COM Rx data to send to USB or not */
         if(comRbytes)
         {
             i32Len = comRbytes;
@@ -232,9 +232,7 @@ void VCOM_TransferData(void)
             if(comThead >= TXBUFSIZE)
                 comThead = 0;
 
-            __set_PRIMASK(1);
             comTbytes--;
-            __set_PRIMASK(0);
 
             /* Enable Tx Empty Interrupt. (Trigger first one) */
             UART0->IER |= UART_IER_THRE_IE_Msk;
